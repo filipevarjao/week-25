@@ -2,8 +2,23 @@ require File.join(File.dirname(__FILE__), "spec_helper")
 
 describe Battleship do
 
-    subject { Battleship.new }
+  subject { Battleship.new }
 
+  def full
+    battleship = Battleship.new
+    battleship.add_player 'frank'
+    battleship.add_player 'ivan'
+    battleship.place_ship 'frank', :tugboat, :horizontal, 1, 1
+    battleship.place_ship 'ivan', :carrier, :vertical, 1, 1
+    battleship.shoot 'frank', 1, 1
+
+    battleship.add_player 'brandon'
+    battleship.place_ship 'brandon', :destroyer, :horizonal, 1, 3
+    battleship.shoot 'frank', 1, 1
+    battleship.shoot 'frank', 2, 1
+    battleship.shoot 'frank', 2, 1
+    battleship
+  end
 
   it "should include 2 players" do
     subject.add_player "frank"
@@ -35,7 +50,7 @@ describe Battleship do
     b.shoot 'frank', 2, 1
     b.shoot 'frank', 2, 1
 
-    b.class.should == Battleship
+    b.ship_positions.should == full.ship_positions
   end
 
 end
