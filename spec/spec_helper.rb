@@ -1,1 +1,1 @@
-require_relative '../lib/battleship'
+require File.join(File.dirname(__FILE__), "..", "lib", "battleship")

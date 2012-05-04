@@ -2,6 +2,8 @@ source :rubygems
 
 gem 'rake'
 
+gem "ruby-debug"
+
 group :participant do
   gem 'rspec'
   gem 'guard'
