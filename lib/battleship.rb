@@ -22,22 +22,11 @@ class Battleship
   end
 
   def add_player(name)
-
-    if game_has_started?
-      puts "Sorry #{name}, you can't play. The game has already started"
-      return
-    end
-
     @players << name
     @ship_positions[name] = {}
   end
 
   def place_ship(player_name,ship_name,direction,x_position,y_position)
-
-    if game_is_over?
-      puts "GAME IS OVER! Start a new game!"
-      return
-    end
 
     if game_has_started?
       puts "Sorry #{player_name}, you can't place a ship. The game has already started"
@@ -46,7 +35,6 @@ class Battleship
 
     horizontal = (direction == :horizontal) ? 1 : 0
     vertical = (direction == :vertical) ? 1 : 0
-
 
     def iterate(number, x, y, horizontal, vertical)
       @positions = []
@@ -74,14 +62,9 @@ class Battleship
       return
     end
 
-    @game_has_started = true
-
-    # puts "CHEAT: #{@ship_positions[at_player_with_name].inspect}"
-
     sunk_ship = @ship_positions[at_player_with_name].find do |ship_name,ship_positions|
 
       hit_at_position = ship_positions.find do |position|
-
         if (position.first == x_position and position.last == y_position)
           puts "#{at_player_with_name}'s #{ship_name} has been HIT!"
           true
@@ -89,7 +72,6 @@ class Battleship
           puts "MISS!"
           false
         end
-
       end
 
       if hit_at_position
@@ -101,9 +83,7 @@ class Battleship
         else
           false
         end
-
       end
-
     end
 
     if sunk_ship
@@ -115,20 +95,6 @@ class Battleship
       puts "PLAYER #{at_player_with_name} has been defeated!"
       @game_is_over = true
     end
-
   end
 
 end
-
-b = Battleship.new
-b.add_player 'frank'
-b.add_player 'ivan'
-b.place_ship 'frank', :tugboat, :horizontal, 1, 1
-b.place_ship 'ivan', :carrier, :vertical, 1, 1
-
-b.shoot 'frank', 1, 1
-b.add_player 'brandon'
-b.place_ship 'brandon', :destroyer, :horizonal, 1, 3
-b.shoot 'frank', 1, 1
-b.shoot 'frank', 2, 1
-b.shoot 'frank', 2, 1
